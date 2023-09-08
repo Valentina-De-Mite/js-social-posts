@@ -122,4 +122,9 @@ posts.forEach((element) => {
     </div>
 </div>
 </div>`;
+  console.log(postMarkup);
+  document
+    .getElementById("postMarkup")
+    .insertAdjacentHTML("beforeend", postMarkup);
+  console.log(document.getElementById("postMarkup"));
 });
