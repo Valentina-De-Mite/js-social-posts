@@ -36,6 +36,7 @@ const posts = [
     },
     likes: 80,
     created: "2021-06-25",
+    clicked: false,
   },
   {
     id: 2,
@@ -48,6 +49,7 @@ const posts = [
     },
     likes: 120,
     created: "2021-09-03",
+    clicked: false,
   },
   {
     id: 3,
@@ -60,6 +62,7 @@ const posts = [
     },
     likes: 78,
     created: "2021-05-15",
+    clicked: false,
   },
   {
     id: 4,
@@ -68,10 +71,11 @@ const posts = [
     media: "https://unsplash.it/600/400?image=24",
     author: {
       name: "Luca Formicola",
-      image: null,
+      image: "https://unsplash.it/300/300?image=90",
     },
     likes: 56,
     created: "2021-04-03",
+    clicked: false,
   },
   {
     id: 5,
@@ -84,6 +88,7 @@ const posts = [
     },
     likes: 95,
     created: "2021-03-05",
+    clicked: false,
   },
 ];
 
@@ -92,7 +97,7 @@ const posts = [
 posts.forEach((element) => {
   //   console.log(element.likes);
 
-  let postMarkup = `<div class="post">
+  let postMarkup = `<div class="post my-4 rounded">
 <div class="post__header">
     <div class="post-meta">
         <div class="post-meta__icon">
@@ -111,13 +116,13 @@ posts.forEach((element) => {
 <div class="post__footer">
     <div class="likes js-likes">
         <div class="likes__cta">
-            <a class="like-button  js-like-button" href="#" data-postid="1">
+            <a class="like-button  js-like-button" id ="likeButton${element.id}" href="#" data-postid="1">
                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                 <span class="like-button__label">Mi Piace</span>
             </a>
         </div>
         <div class="likes__counter">
-            Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+            Piace a <b id="like-counter${element.id}" class="js-likes-counter">${element.likes}</b> persone
         </div>
     </div>
 </div>
@@ -127,4 +132,20 @@ posts.forEach((element) => {
     .getElementById("postMarkup")
     .insertAdjacentHTML("beforeend", postMarkup);
   console.log(document.getElementById("postMarkup"));
+  /* faccio diventare ogni post unico*/
+  document
+    .getElementById("likeButton" + element.id)
+    .addEventListener("click", function () {
+      if (element.clicked == false) {
+        element.likes += 1;
+        element.clicked = true;
+        console.log(element.likes);
+      } else {
+        element.likes -= 1;
+        element.clicked = false;
+        console.log(element.likes);
+      }
+      document.getElementById("like-counter" + element.id).innerText =
+        element.likes;
+    });
 });
